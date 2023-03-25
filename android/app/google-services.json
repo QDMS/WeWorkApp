@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014051984622",
+    "project_id": "we-work-app-1e9da",
+    "storage_bucket": "we-work-app-1e9da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014051984622:android:da5bb1763b8c652d328fff",
+        "android_client_info": {
+          "package_name": "com.tismstudios.we_work_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014051984622-60s98oljsv11g2h81skr1eic69oeu6n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkP5gTObSLa3uBWtsUFNVuDX0tC4yq7cE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014051984622-60s98oljsv11g2h81skr1eic69oeu6n1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
