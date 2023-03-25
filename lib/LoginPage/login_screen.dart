@@ -169,7 +169,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a valid password';
-                            } else if (value!.length < 4) {
+                            } else if (value.length < 4) {
                               return 'Password must be 4 or more characters long!';
                             } else {
                               return null;
