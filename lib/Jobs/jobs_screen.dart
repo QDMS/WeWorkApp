@@ -163,16 +163,17 @@ class _JobScreenState extends State<JobScreen> {
                   return ListView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data?.docs.length,
-                      itemBuilder: (context, int index)
-                      {
+                      itemBuilder: (context, int index) {
                         return JobWidget(
                           jobTitle: snapshot.data?.docs[index]['jobTitle'],
-                          jobDescription: snapshot.data?.docs[index]['jobDescription'],
+                          jobDescription: snapshot.data?.docs[index]
+                              ['jobDescription'],
                           jobId: snapshot.data?.docs[index]['jobId'],
                           uploadedBy: snapshot.data?.docs[index]['uploadedBy'],
                           userImage: snapshot.data?.docs[index]['userImage'],
                           name: snapshot.data?.docs[index]['name'],
-                          recruitment: snapshot.data?.docs[index]['recruitment'],
+                          recruitment: snapshot.data?.docs[index]
+                              ['recruitment'],
                           email: snapshot.data?.docs[index]['email'],
                           location: snapshot.data?.docs[index]['location'],
                         );

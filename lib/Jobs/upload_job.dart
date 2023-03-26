@@ -11,6 +11,8 @@ import 'package:we_work_app/Widgets/bottom_nav_bar.dart';
 import '../Services/global_variables.dart';
 
 class UploadJobs extends StatefulWidget {
+  const UploadJobs({super.key});
+
   @override
   State<UploadJobs> createState() => _UploadJobsState();
 }
@@ -250,6 +252,26 @@ class _UploadJobsState extends State<UploadJobs> {
     } else {
       print('Not Valid');
     }
+  }
+
+  void getMyData() async {
+    final DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    setState(() {
+      name = userDoc.get('name');
+      userImage = userDoc.get('userImage');
+      location = userDoc.get('location');
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMyData();
   }
 
   @override
