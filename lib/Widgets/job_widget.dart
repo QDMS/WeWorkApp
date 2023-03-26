@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class JobWidget extends StatefulWidget {
@@ -28,6 +29,41 @@ class JobWidget extends StatefulWidget {
 }
 
 class _JobWidgetState extends State<JobWidget> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  _deleteDialog() {
+    User? user = _auth.currentUser;
+    final _uid = user!.uid;
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            actions: [
+              TextButton(
+                onPressed: () {
+                  //TODO
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.delete_rounded,
+                      color: Colors.red,
+                    ),
+                    Text(
+                      'Delete',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -48,14 +84,21 @@ class _JobWidgetState extends State<JobWidget> {
           ),
           child: Image.network(widget.userImage),
         ),
-        title: Text(
-          widget.jobTitle,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: Colors.amber,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+        title: ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Colors.orange, Colors.green],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: Text(
+            widget.jobTitle,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
         subtitle: Column(

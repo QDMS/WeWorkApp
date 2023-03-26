@@ -263,7 +263,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(8.0),
                             child: ShaderMask(
                               shaderCallback: (bounds) => const LinearGradient(
-                                colors: [Colors.deepPurple, Colors.pink],
+                                colors: [Colors.white, Colors.white],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ).createShader(bounds),

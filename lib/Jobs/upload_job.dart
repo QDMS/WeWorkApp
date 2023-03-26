@@ -144,7 +144,7 @@ class _UploadJobsState extends State<UploadJobs> {
                               Persistent.jobCategoryList[index],
                               style: const TextStyle(
                                 color: Colors.grey,
-                                fontSize: 16,
+                                fontSize: 14,
                               ),
                             ),
                           ),
