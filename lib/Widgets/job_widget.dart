@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:we_work_app/Jobs/job_details.dart';
 import 'package:we_work_app/Services/global_methods.dart';
 
 class JobWidget extends StatefulWidget {
@@ -46,30 +47,27 @@ class _JobWidgetState extends State<JobWidget> {
             actions: [
               TextButton(
                 onPressed: () async {
-                 try
-                     {
-                       if(widget.uploadedBy == _uid)
-                         {
-                           await FirebaseFirestore.instance.collection('jobs')
-                               .doc(widget.jobId)
-                               .delete();
-                           await Fluttertoast.showToast(
-                               msg: 'Job has been removed',
-                             toastLength: Toast.LENGTH_LONG,
-                             backgroundColor: Colors.grey,
-                             fontSize: 18.0,
-                           );
-                           Navigator.canPop(context) ? Navigator.pop(context) : null;
-                         }
-                       else
-                         {
-                           GlobalMethod.showErrorDialog(error: "You can't perform this action", ctx: ctx);
-                         }
-                     }
-                     catch(error)
-                  {
-                    GlobalMethod.showErrorDialog(error: "Job can't be removed", ctx: ctx);
-                  } finally{}
+                  try {
+                    if (widget.uploadedBy == _uid) {
+                      await FirebaseFirestore.instance
+                          .collection('jobs')
+                          .doc(widget.jobId)
+                          .delete();
+                      await Fluttertoast.showToast(
+                        msg: 'Job has been removed',
+                        toastLength: Toast.LENGTH_LONG,
+                        backgroundColor: Colors.grey,
+                        fontSize: 18.0,
+                      );
+                      Navigator.canPop(context) ? Navigator.pop(context) : null;
+                    } else {
+                      GlobalMethod.showErrorDialog(
+                          error: "You can't perform this action", ctx: ctx);
+                    }
+                  } catch (error) {
+                    GlobalMethod.showErrorDialog(
+                        error: "Job can't be removed", ctx: ctx);
+                  } finally {}
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +98,15 @@ class _JobWidgetState extends State<JobWidget> {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: ListTile(
         onTap: () {
-          //TODO
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => JobDetails(
+                uploadedBy: widget.uploadedBy,
+                jobID: widget.jobId,
+              ),
+            ),
+          );
         },
         onLongPress: () {
           _deleteDialog();

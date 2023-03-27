@@ -26,7 +26,7 @@ class _UploadJobsState extends State<UploadJobs> {
   final TextEditingController _jobDescriptionController =
       TextEditingController(text: '');
   final TextEditingController _jobLengthController =
-      TextEditingController(text: 'Job Length');
+      TextEditingController(text: 'Application Deadline Length');
 
   final _formKey = GlobalKey<FormState>();
   DateTime? picked;
@@ -235,7 +235,7 @@ class _UploadJobsState extends State<UploadJobs> {
         _jobDescriptionController.clear();
         setState(() {
           _jobCategoryController.text = 'Select Job Category';
-          _jobLengthController.text = 'Select Job Length';
+          _jobLengthController.text = 'Select the length of application';
         });
       } catch (error) {
         {
@@ -252,26 +252,6 @@ class _UploadJobsState extends State<UploadJobs> {
     } else {
       print('Not Valid');
     }
-  }
-
-  void getMyData() async {
-    final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    setState(() {
-      name = userDoc.get('name');
-      userImage = userDoc.get('userImage');
-      location = userDoc.get('location');
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMyData();
   }
 
   @override
@@ -377,7 +357,7 @@ class _UploadJobsState extends State<UploadJobs> {
                               fct: () {},
                               maxLength: 300,
                             ),
-                            _textTitles(label: 'Select Job Length :'),
+                            _textTitles(label: 'Application Length :'),
                             _textFormFields(
                               valueKey: 'JobLength',
                               controller: _jobLengthController,
