@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import 'package:we_work_app/Jobs/jobs_screen.dart';
 import 'package:we_work_app/Services/global_methods.dart';
 import 'package:we_work_app/Services/global_variables.dart';
+import 'package:we_work_app/Widgets/comments_widget.dart';
 
 class JobDetails extends StatefulWidget {
   final String uploadedBy;
@@ -732,7 +733,7 @@ class _JobDetailsState extends State<JobDetails> {
                                     child: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          showComment = false;
+                                          showComment = true;
                                         });
                                       },
                                       icon: const Icon(
@@ -745,6 +746,70 @@ class _JobDetailsState extends State<JobDetails> {
                                 ],
                               ),
                       ),
+                      showComment == false
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: FutureBuilder<DocumentSnapshot>(
+                                future: FirebaseFirestore.instance
+                                    .collection('jobs')
+                                    .doc(widget.jobID)
+                                    .get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    if (snapshot.data == null) {
+                                      const Center(
+                                        child: Text('No comment for this job'),
+                                      );
+                                    }
+                                  }
+                                  return ListView.separated(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return CommentWidget(
+                                        commentId: snapshot.data!['jobComments']
+                                            [index]['commentId'],
+                                        commenterId:
+                                            snapshot.data!['jobComments'][index]
+                                                ['userId'],
+                                        commenterName:
+                                            snapshot.data!['jobComments'][index]
+                                                ['name'],
+                                        commentBody:
+                                            snapshot.data!['jobComments'][index]
+                                                ['commentBody'],
+                                        commenterImageUrl:
+                                            snapshot.data!['jobComments'][index]
+                                                ['userImageUrl'],
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return ShaderMask(
+                                        shaderCallback: (bounds) =>
+                                            const LinearGradient(
+                                          colors: [Colors.orange, Colors.green],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ).createShader(bounds),
+                                        child: const Divider(
+                                          thickness: 1,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    },
+                                    itemCount:
+                                        snapshot.data!['jobComments'].length,
+                                  );
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),

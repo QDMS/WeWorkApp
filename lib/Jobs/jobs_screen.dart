@@ -106,6 +106,14 @@ class _JobScreenState extends State<JobScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     colors: [Colors.deepOrange.shade300, Colors.green.shade300],
+      //     begin: Alignment.centerLeft,
+      //     end: Alignment.centerRight,
+      //     stops: const [0.2, 0.9],
+      //   ),
+      // ),
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBarForApp(indexNum: 0),
         backgroundColor: Colors.white,
